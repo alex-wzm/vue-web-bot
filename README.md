@@ -1,4 +1,5 @@
 # vue-web-bot
+An awesome interface for a chatbot.
 
 ## Project setup
 ```
