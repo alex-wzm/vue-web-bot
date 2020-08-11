@@ -51,28 +51,18 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .prompt {
   font-family: "Courier New", Courier, monospace;
   font-size: 1.5rem;
   padding: 5px;
 }
 
-input {
-  border: none;
-  caret-color: transparent;
-  color: #2c3e50;
-}
-
-input:focus {
-  border: none;
-  outline: none;
-}
-
 .cursor {
   display: inline;
   position: absolute;
   line-height: 5px;
+  pointer-events: none;
 
   animation: blinkingText 1.2s infinite;
 }
@@ -94,16 +84,28 @@ input:focus {
   }
 }
 
+input {
+  border: none;
+  caret-color: transparent;
+  color: #2c3e50;
+
+  &:focus {
+    border: none;
+    outline: none;
+  }
+}
+
 button {
   border: none;
+  border-radius: 5px;
   padding: 0.33rem;
-}
 
-button:focus {
-  outline-color: #42b983;
-}
+  &:focus {
+    outline-color: #42b983;
+  }
 
-button:hover {
-  color: #42b983;
+  &:hover {
+    color: #42b983;
+  }
 }
 </style>
