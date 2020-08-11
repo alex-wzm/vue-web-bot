@@ -2,9 +2,14 @@
   <div>
     <p>{{responseText}}</p>
     <h1>
-      >_
-      <input type="text" v-model="userQuery" />
-      <button @click="submitQuery(userQuery)">Query</button>
+      <div class="command-line">
+        <form onsubmit="return false">
+          <span class="prompt">></span>
+          <pre class="prompt cursor">{{cursor}}</pre>
+          <input class="prompt" type="text" autofocus v-model="userQuery" @input="onInput" />
+          <button @click="submitQuery(userQuery)" type="submit">Query</button>
+        </form>
+      </div>
     </h1>
   </div>
 </template>
@@ -16,8 +21,9 @@ export default {
   name: "WebBot",
   data() {
     return {
+      responseText: "Ask me anything.",
+      cursor: "_",
       userQuery: "",
-      responseText: "Ask me anything."
     };
   },
   methods: {
@@ -26,16 +32,78 @@ export default {
         queryInput: {
           text: {
             languageCode: "en",
-            text: queryText
-          }
-        }
-      }).then(response => {
+            text: queryText,
+          },
+        },
+      }).then((response) => {
         this.responseText = response.data.queryResult.fulfillmentText;
+        this.resetPrompt();
       });
-    }
-  }
+    },
+    onInput(event) {
+      this.cursor = " ".repeat(Math.min(20, event.target.value.length)) + "_";
+    },
+    resetPrompt() {
+      this.userQuery = "";
+      this.cursor = "_";
+    },
+  },
 };
 </script>
 
 <style scoped>
+.prompt {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 1.5rem;
+  padding: 5px;
+}
+
+input {
+  border: none;
+  caret-color: transparent;
+  color: #2c3e50;
+}
+
+input:focus {
+  border: none;
+  outline: none;
+}
+
+.cursor {
+  display: inline;
+  position: absolute;
+  line-height: 5px;
+
+  animation: blinkingText 1.2s infinite;
+}
+@keyframes blinkingText {
+  0% {
+    color: #2c3e50;
+  }
+  49% {
+    color: #2c3e50;
+  }
+  60% {
+    color: transparent;
+  }
+  99% {
+    color: transparent;
+  }
+  100% {
+    color: #2c3e50;
+  }
+}
+
+button {
+  border: none;
+  padding: 0.33rem;
+}
+
+button:focus {
+  outline-color: #42b983;
+}
+
+button:hover {
+  color: #42b983;
+}
 </style>
