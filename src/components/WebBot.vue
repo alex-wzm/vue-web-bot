@@ -5,8 +5,17 @@
       <div class="command-line">
         <form onsubmit="return false">
           <span class="prompt">></span>
-          <pre class="prompt cursor">{{cursor}}</pre>
-          <input class="prompt" type="text" autofocus v-model="userQuery" @input="onInput" />
+          <!-- <pre class="prompt cursor">{{cursor}}</pre> -->
+          <input
+            class="prompt"
+            type="text"
+            autofocus
+            v-model="userQuery"
+            @input="onInput"
+            @keydown="updateCursor"
+            @keydown.left="onKeydownLeft"
+            @keydown.right="onKeydownRight"
+          />
           <button @click="submitQuery(userQuery)" type="submit">Query</button>
         </form>
       </div>
@@ -23,6 +32,7 @@ export default {
     return {
       responseText: "Ask me anything.",
       cursor: "_",
+      cursorOffset: 0,
       userQuery: "",
     };
   },
@@ -41,11 +51,31 @@ export default {
       });
     },
     onInput(event) {
-      this.cursor = " ".repeat(Math.min(20, event.target.value.length)) + "_";
+      console.log("input");
+      this.updateCursor(event);
+    },
+    updateCursor(event) {
+      console.log("update");
+      this.cursor =
+        " ".repeat(
+          Math.min(20, event.target.selectionStart + this.cursorOffset)
+        ) + "_";
+    },
+    onKeydownLeft(event) {
+      console.log("left");
+      // TODO: adjust cursorOffset if userQuery text overflows in input field
+      this.updateCursor(event);
+    },
+    onKeydownRight(event) {
+      console.log("right");
+      // TODO: adjust cursorOffset if userQuery text overflows in input field
+      this.updateCursor(event);
     },
     resetPrompt() {
+      console.log("reset");
       this.userQuery = "";
       this.cursor = "_";
+      this.cursorOffset = 0;
     },
   },
 };
@@ -86,7 +116,8 @@ export default {
 
 input {
   border: none;
-  caret-color: transparent;
+  // caret-color: transparent;
+  caret-color: #2c3e50;
   color: #2c3e50;
 
   &:focus {
