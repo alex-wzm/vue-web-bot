@@ -10,7 +10,8 @@
 
 <script>
 import InputPrompt from "./InputPrompt.vue";
-import DialogflowService from "../common/dialogflow.service";
+// import DialogflowService from "../common/dialogflow.service";
+import ChessAPISerivce from "../common/chess-api.service";
 
 export default {
   components: { InputPrompt },
@@ -19,22 +20,42 @@ export default {
     return {
       responseText: "Ask me anything.",
       userQuery: "",
+      moves: "",
     };
   },
   methods: {
     submitQuery(queryText) {
-      DialogflowService.detectIntent({
-        queryInput: {
-          text: {
-            languageCode: "en",
-            text: queryText,
-          },
-        },
-      }).then((response) => {
-        this.responseText = response.data.queryResult.fulfillmentText;
+      ChessAPISerivce.validateMove(queryText).then((response) => {
+        console.log(response);
+        console.log(this.moves);
+        this.moves = response.data.validMove
+          ? this.moves + queryText
+          : this.moves;
+
+        console.log(this.moves);
+
+        ChessAPISerivce.getBestMove(this.moves).then((response) => {
+          console.log(response);
+          this.responseText = response.data.bestNext;
+          this.moves += response.data.bestNext;
+        });
+
         this.$refs.prompt.resetPrompt();
       });
     },
+    // submitQuery(queryText) {
+    //   DialogflowService.detectIntent({
+    //     queryInput: {
+    //       text: {
+    //         languageCode: "en",
+    //         text: queryText,
+    //       },
+    //     },
+    //   }).then((response) => {
+    //     this.responseText = response.data.queryResult.fulfillmentText;
+    //     this.$refs.prompt.resetPrompt();
+    //   });
+    // },
   },
 };
 </script>
