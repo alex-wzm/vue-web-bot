@@ -1,11 +1,11 @@
 import Vue from "vue";
 import App from "./App.vue";
 
-import DialogflowService from "./common/dialogflow.service";
+import WebBotService from "./common/web-bot.service";
 
 Vue.config.productionTip = false;
 
-DialogflowService.init();
+WebBotService.init();
 
 new Vue({
   render: (h) => h(App),

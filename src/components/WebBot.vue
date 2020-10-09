@@ -1,6 +1,6 @@
 <template>
   <div>
-    <p>{{responseText}}</p>
+    <p>{{ responseText }}</p>
     <form onsubmit="return false">
       <InputPrompt ref="prompt" :userQuery.sync="userQuery" />
       <button type="submit" @click="submitQuery(userQuery)">Query</button>
@@ -10,7 +10,7 @@
 
 <script>
 import InputPrompt from "./InputPrompt.vue";
-import DialogflowService from "../common/dialogflow.service";
+import WebBotService from "../common/web-bot.service";
 
 export default {
   components: { InputPrompt },
@@ -23,15 +23,11 @@ export default {
   },
   methods: {
     submitQuery(queryText) {
-      DialogflowService.detectIntent({
-        queryInput: {
-          text: {
-            languageCode: "en",
-            text: queryText,
-          },
-        },
+      WebBotService.detectIntent({
+        languageCode: "en",
+        queryText: queryText,
       }).then((response) => {
-        this.responseText = response.data.queryResult.fulfillmentText;
+        this.responseText = response.data;
         this.$refs.prompt.resetPrompt();
       });
     },
