@@ -1,7 +1,7 @@
 <template>
   <h1>
     <span class="prompt">></span>
-    <pre class="prompt cursor">{{cursor}}</pre>
+    <pre class="prompt cursor">{{ cursor }}</pre>
     <input
       class="prompt"
       type="text"
@@ -58,7 +58,7 @@ export default {
 <style lang="scss" scoped>
 .prompt {
   font-family: "Courier New", Courier, monospace;
-  font-size: 1.5rem;
+  font-size: 3rem;
   padding: 5px;
 }
 

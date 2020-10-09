@@ -1,9 +1,9 @@
 <template>
   <div>
-    <p>{{ responseText }}</p>
+    <div class="bot-text">{{ responseText }}</div>
     <form onsubmit="return false">
       <InputPrompt ref="prompt" :userQuery.sync="userQuery" />
-      <button type="submit" @click="submitQuery(userQuery)">Query</button>
+      <button type="submit" @click="submitQuery(userQuery)">Enter ↵</button>
     </form>
   </div>
 </template>
@@ -36,7 +36,12 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.bot-text {
+  font-size: 3rem;
+}
+
 button {
+  font-size: 2rem;
   border: none;
   border-radius: 5px;
   padding: 0.33rem;
