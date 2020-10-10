@@ -6,7 +6,8 @@
         data-icon="octicon-star"
         data-size="large"
         aria-label="Star alex-wzm/vue-web-bot on GitHub"
-      >Star</github-button>
+        >Star</github-button
+      >
       <p>v{{ currentVersion }}</p>
       <a href="https://vuejs.org/" target="_blank">
         <img height="50px" alt="Vue logo" src="../assets/logo.png" />
@@ -22,9 +23,9 @@ export default {
   components: { GithubButton },
   data() {
     return {
-      currentVersion: process.env.VUE_APP_VERSION
+      currentVersion: process.env.VUE_APP_VERSION,
     };
-  }
+  },
 };
 </script>
 
@@ -37,13 +38,13 @@ export default {
   left: 0;
   bottom: 0;
   width: 100%;
-  background: rgb(255, 255, 255);
-  background: linear-gradient(
+  background: var(--bg);
+  /* background: linear-gradient(
     0deg,
     rgba(255, 255, 255, 1) 0%,
     rgba(255, 255, 255, 0.66) 66%,
     rgba(255, 255, 255, 0) 100%
-  );
+  ); */
 }
 .footer > * {
   margin: 0.5% 1%;

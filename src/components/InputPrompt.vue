@@ -2,6 +2,7 @@
   <h1>
     <span class="prompt">></span>
     <pre class="prompt cursor">{{ cursor }}</pre>
+    <!-- TODO: hide/freeze cursor on focus blur -->
     <input
       class="prompt"
       type="text"
@@ -72,10 +73,10 @@ export default {
 }
 @keyframes blinkingText {
   0% {
-    color: #2c3e50;
+    color: var(--color);
   }
   49% {
-    color: #2c3e50;
+    color: var(--color);
   }
   60% {
     color: transparent;
@@ -84,15 +85,16 @@ export default {
     color: transparent;
   }
   100% {
-    color: #2c3e50;
+    color: var(--color);
   }
 }
 
 input {
   border: none;
   caret-color: transparent;
-  // caret-color: #2c3e50;
-  color: #2c3e50;
+  // caret-color: var(--color);
+  background-color: var(--bg);
+  color: var(--color);
 
   &:focus {
     border: none;

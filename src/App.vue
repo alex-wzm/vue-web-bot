@@ -1,20 +1,23 @@
 <template>
   <div id="app">
+    <AppHeader />
     <WebBot />
     <AppFooter />
   </div>
 </template>
 
 <script>
+import AppHeader from "./components/AppHeader.vue";
 import WebBot from "./components/WebBot.vue";
 import AppFooter from "./components/AppFooter.vue";
 
 export default {
   name: "App",
   components: {
+    AppHeader,
     WebBot,
-    AppFooter
-  }
+    AppFooter,
+  },
 };
 </script>
 
@@ -24,7 +27,8 @@ export default {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  background-color: var(--bg);
+  color: var(--color);
   margin-top: 60px;
 }
 </style>
